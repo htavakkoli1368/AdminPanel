@@ -8,14 +8,14 @@ using webApi.Model;
 
 namespace webApi.Services.Users
 {
-    public class UsersServices : UsersInterface
+    public class UsersServices : IUsersInterface
     {
         public readonly AppDbContext appDbContext;
-        public readonly IMapper autoMapper;
-        public UsersServices(AppDbContext appContext, IMapper autoMapper)
+       // public readonly IMapper autoMapper;
+        public UsersServices(AppDbContext appContext )
         {
             this.appDbContext = appContext;
-            this.autoMapper = autoMapper;
+            //this.autoMapper = autoMapper;
         }
 
         public void AddNewUsers(UsersDTO userDTO)
@@ -23,7 +23,7 @@ namespace webApi.Services.Users
             var users = appDbContext.usersSample.FirstOrDefault(c => c.Id == userDTO.Id);
             if (users != null)
                 throw new Exception("the user you want to add exist");
-            var convertedUsers = autoMapper.Map<Model.Users>(userDTO);
+            var convertedUsers = new Model.Users() { IsAdmin = userDTO.IsAdmin, Passwoed = userDTO.Passwoed, Role = userDTO.Role, UserName = userDTO.UserName };
             appDbContext.usersSample.Add(convertedUsers);
             appDbContext.SaveChanges();          
         }
@@ -43,7 +43,7 @@ namespace webApi.Services.Users
             var users = appDbContext.usersSample.FirstOrDefault(c=>c.Id == id);
             if (users == null)
                 throw new Exception("the user not found");
-            var convertedUsers = autoMapper.Map<UsersDTO>(users);
+            var convertedUsers =  new UsersDTO() { Id=users.Id,IsAdmin=users.IsAdmin,Passwoed=users.Passwoed,Role=users.Role,UserName=users.UserName};
             return convertedUsers;
         }
 

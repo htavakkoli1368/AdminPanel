@@ -1,6 +1,6 @@
 ﻿namespace webApi.Services.Users
 {
-    public interface UsersInterface
+    public interface IUsersInterface
     {
         List<UsersDTO> GetAllUsers();
 
