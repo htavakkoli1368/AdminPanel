@@ -2,7 +2,7 @@
 {
     public interface IUsersInterface
     {
-        List<UsersDTO> GetAllUsers();
+        List<Model.Users> GetAllUsers();
 
         void AddNewUsers(UsersDTO userDTO);
         UsersDTO GetUser(int id);

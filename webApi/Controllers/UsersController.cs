@@ -24,11 +24,11 @@ namespace webApi.Controllers
         }
 
         // GET: api/Users
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Users>>> GetusersSample()
-        //{
-        //    return await _context.usersSample.ToListAsync();
-        //}
+        [HttpGet]
+        public  ActionResult<List<Users>>  GetusersSample()
+        {
+            return usersContext.GetAllUsers();
+        }
 
         // GET: api/Users/5
         [HttpGet("{id}")]

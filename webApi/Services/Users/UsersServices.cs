@@ -33,9 +33,12 @@ namespace webApi.Services.Users
             throw new NotImplementedException();
         }
 
-        public List<UsersDTO> GetAllUsers()
+        public List<Model.Users> GetAllUsers()
         {
-            throw new NotImplementedException();
+             var allusers = appDbContext.usersSample.ToList();
+            if (allusers == null)
+                throw new Exception("there is no users in database");
+            return allusers;
         }
 
         public UsersDTO GetUser(int id)
