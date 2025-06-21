@@ -11,11 +11,11 @@ namespace webApi.Services.Users
     public class UsersServices : IUsersInterface
     {
         public readonly AppDbContext appDbContext;
-       // public readonly IMapper autoMapper;
-        public UsersServices(AppDbContext appContext )
+        public readonly IMapper autoMapper;
+        public UsersServices(AppDbContext appContext ,IMapper autoMapper)
         {
             this.appDbContext = appContext;
-            //this.autoMapper = autoMapper;
+            this.autoMapper = autoMapper;
         }
 
         public void AddNewUsers(UsersDTO userDTO)
@@ -33,12 +33,13 @@ namespace webApi.Services.Users
             throw new NotImplementedException();
         }
 
-        public List<Model.Users> GetAllUsers()
+        public List<UsersDTO> GetAllUsers()
         {
              var allusers = appDbContext.usersSample.ToList();
             if (allusers == null)
                 throw new Exception("there is no users in database");
-            return allusers;
+            var convertedUsers = autoMapper.Map<List<UsersDTO>>(allusers);
+            return convertedUsers;
         }
 
         public UsersDTO GetUser(int id)

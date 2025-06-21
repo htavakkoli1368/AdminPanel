@@ -6,9 +6,10 @@ namespace webApi.Mapper
 {
     public class UsersAutoMapper : Profile
     {
-        protected UsersAutoMapper()
+        public UsersAutoMapper()
         {
-            CreateMap<Users,UsersDTO>().ReverseMap();
+            CreateMap<Users,UsersDTO>();
+            CreateMap<UsersDTO,Users>();
         }
     }
 }

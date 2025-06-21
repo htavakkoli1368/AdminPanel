@@ -25,7 +25,7 @@ namespace webApi.Controllers
 
         // GET: api/Users
         [HttpGet]
-        public  ActionResult<List<Users>>  GetusersSample()
+        public  ActionResult<List<UsersDTO>>  GetusersSample()
         {
             return usersContext.GetAllUsers();
         }
