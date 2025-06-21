@@ -23,7 +23,7 @@ namespace webApi.Services.Users
             var users = appDbContext.usersSample.FirstOrDefault(c => c.Id == userDTO.Id);
             if (users != null)
                 throw new Exception("the user you want to add exist");
-            var convertedUsers = new Model.Users() { IsAdmin = userDTO.IsAdmin, Passwoed = userDTO.Passwoed, Role = userDTO.Role, UserName = userDTO.UserName };
+            var convertedUsers = autoMapper.Map<Model.Users>(userDTO);
             appDbContext.usersSample.Add(convertedUsers);
             appDbContext.SaveChanges();          
         }

@@ -75,18 +75,17 @@ namespace webApi.Controllers
         //    return NoContent();
         //}
 
-        // POST: api/Users
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPost]
-        //public async Task<ActionResult<Users>> PostUsers(Users users)
-        //{
-        //    _context.usersSample.Add(users);
-        //    await _context.SaveChangesAsync();
+       // POST: api/Users
+       // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public  ActionResult  PostUsers(UsersDTO users)
+        {
 
-        //    return CreatedAtAction("GetUsers", new { id = users.Id }, users);
-        //}
+           usersContext.AddNewUsers(users);
+           return Ok("successfully Added new user");
+        }
 
-        // DELETE: api/Users/5
+        //DELETE: api/Users/5
         //[HttpDelete("{id}")]
         //public async Task<IActionResult> DeleteUsers(int id)
         //{
