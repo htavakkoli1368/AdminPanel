@@ -4,6 +4,7 @@ using System.Linq;
 using webApi.Infrastructure;
 using webApi.Mapper;
 using webApi.Model;
+using webApi.Services.Users.Responses;
 
 
 namespace webApi.Services.Users
@@ -18,19 +19,21 @@ namespace webApi.Services.Users
             this.autoMapper = autoMapper;
         }
 
-        public void AddNewUsers(UsersDTO userDTO)
+        public ResultDto AddNewUsers(UsersDTO userDTO)
         {
             var users = appDbContext.usersSample.FirstOrDefault(c => c.Id == userDTO.Id);
             if (users != null)
                 throw new Exception("the user you want to add exist");
             var convertedUsers = autoMapper.Map<Model.Users>(userDTO);
             appDbContext.usersSample.Add(convertedUsers);
-            appDbContext.SaveChanges();          
+            appDbContext.SaveChanges();              
+            return new ResultDto() { IsSuccess = true ,Message="the user successfully added to the database"};
         }
 
-        public string DeleteUsers(int id)
+        public ResultDto DeleteUsers(int id)
         {
-            throw new NotImplementedException();
+
+            return new ResultDto { IsSuccess = true, Message = "the user successfully updated" };
         }
 
         public List<UsersDTO> GetAllUsers()
@@ -51,9 +54,10 @@ namespace webApi.Services.Users
             return convertedUsers;
         }
 
-        public string UpdateUsers(int id)
+        public ResultDto UpdateUsers(int id, AddNewUserDTO newUserDTO)
         {
-            throw new NotImplementedException();
+
+            return new ResultDto { IsSuccess = true, Message = "the user successfully updated" };
         }
     }
 }

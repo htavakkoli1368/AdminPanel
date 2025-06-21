@@ -1,13 +1,15 @@
-﻿namespace webApi.Services.Users
+﻿using webApi.Services.Users.Responses;
+
+namespace webApi.Services.Users
 {
     public interface IUsersInterface
     {
         List<UsersDTO> GetAllUsers();
 
-        void AddNewUsers(UsersDTO userDTO);
+        ResultDto AddNewUsers(UsersDTO userDTO);
         UsersDTO GetUser(int id);
-        string DeleteUsers(int id);
-        string UpdateUsers(int id);
+        ResultDto DeleteUsers(int id);
+        ResultDto UpdateUsers(int id);
 
     }
 }

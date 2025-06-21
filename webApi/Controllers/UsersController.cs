@@ -81,8 +81,10 @@ namespace webApi.Controllers
         public  ActionResult  PostUsers(UsersDTO users)
         {
 
-           usersContext.AddNewUsers(users);
-           return Ok("successfully Added new user");
+           var result =usersContext.AddNewUsers(users);
+            if (!result.IsSuccess)
+                throw new Exception("Internal Server Error");
+           return Ok(result);
         }
 
         //DELETE: api/Users/5
