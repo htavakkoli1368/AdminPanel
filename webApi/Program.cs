@@ -13,9 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(p => p.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddAutoMapper(typeof(UsersAutoMapper));
+builder.Services.AddAutoMapper(typeof(UsersAutoMapper)); 
 builder.Services.AddTransient<UsersInterface, UsersServices>();
-builder.Services.AddControllers();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

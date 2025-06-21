@@ -1,8 +1,12 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using webApi.Services.Users;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Microsoft.EntityFrameworkCore;
+using webApi.Infrastructure;
+using webApi.Model;
 
 namespace webApi.Controllers
 {
@@ -10,46 +14,95 @@ namespace webApi.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly UsersInterface usersServices;
+        private readonly AppDbContext _context;
 
-   
-        public UsersController(UsersInterface usersServices)
+        public UsersController(AppDbContext context)
         {
-            this.usersServices = usersServices;
-            
+            _context = context;
         }
 
-        // GET: api/<UsersController>
+        // GET: api/Users
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<Users>>> GetusersSample()
         {
-            return new string[] { "value1", "value2" };
+            return await _context.usersSample.ToListAsync();
         }
 
-        // GET api/<UsersController>/5
+        // GET: api/Users/5
         [HttpGet("{id}")]
-        public ActionResult Get(int id)
+        public async Task<ActionResult<Users>> GetUsers(int id)
         {
-            var user = usersServices.GetUser(id);
-            return Ok(user);
+            var users = await _context.usersSample.FindAsync(id);
+
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            return users;
         }
 
-        // POST api/<UsersController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<UsersController>/5
+        // PUT: api/Users/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> PutUsers(int id, Users users)
         {
+            if (id != users.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(users).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UsersExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
 
-        // DELETE api/<UsersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // POST: api/Users
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<Users>> PostUsers(Users users)
         {
+            _context.usersSample.Add(users);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetUsers", new { id = users.Id }, users);
+        }
+
+        // DELETE: api/Users/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUsers(int id)
+        {
+            var users = await _context.usersSample.FindAsync(id);
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            _context.usersSample.Remove(users);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool UsersExists(int id)
+        {
+            return _context.usersSample.Any(e => e.Id == id);
         }
     }
 }
