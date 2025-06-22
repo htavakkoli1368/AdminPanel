@@ -23,15 +23,21 @@ namespace webApi.Controllers
             usersContext = users;
         }
 
-        // GET: api/Users
-        [HttpGet]
-        public  ActionResult<List<UsersDTO>>  GetusersSample()
+   
+        [HttpGet("internal")]
+        public ActionResult<List<UsersDTO>> GetusersSample()
         {
             return usersContext.GetAllUsers();
         }
+       
+        [HttpGet("external")]
+        public  ActionResult<ExternalUserDTO>  GetusersExternal()
+        {
+            return usersContext.GetUserExternal();
+        }
 
         // GET: api/Users/5
-        [HttpGet("{id}")]
+        [HttpGet("uniqueUser,{id}")]
         public   ActionResult<Users>  GetUsers(int id)
         {
             var users = usersContext.GetUser(id);
@@ -46,7 +52,7 @@ namespace webApi.Controllers
 
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("updateUser,{id}")]
         public  IActionResult PutUsers(int id, UsersUpdateDTO users)
         {
 
@@ -62,7 +68,7 @@ namespace webApi.Controllers
 
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("newUser")]
         public  ActionResult  PostUsers(UsersDTO users)
         {
 
@@ -73,7 +79,7 @@ namespace webApi.Controllers
         }
 
         //DELETE: api/Users/5
-        [HttpDelete("{id}")]
+        [HttpDelete("RemoveUser,{id}")]
         public  IActionResult DeleteUsers(int id)
         {
             var users = usersContext.DeleteUsers(id);
@@ -85,7 +91,7 @@ namespace webApi.Controllers
             return Ok(users);
         }
 
-        [HttpPost("{id}")]
+        [HttpPost("userExist,{id}")]
         public ActionResult<bool> UsersExists(int id)
         {
             var exist = usersContext.checkUserExist(id);

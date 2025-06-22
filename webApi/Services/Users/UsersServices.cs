@@ -1,11 +1,11 @@
 ﻿
 using AutoMapper;
+using Newtonsoft.Json;
+using RestSharp;
 using System.Linq;
 using webApi.Infrastructure;
-using webApi.Mapper;
 using webApi.Model;
 using webApi.Services.Users.Responses;
-
 
 namespace webApi.Services.Users
 {
@@ -108,5 +108,21 @@ namespace webApi.Services.Users
         {
             return appDbContext.usersSample.Any(u=>u.Id == id);
         }
+
+        public ExternalUserDTO GetUserExternal()
+        {
+            var options = new RestClientOptions("https://jsonplaceholder.typicode.com")
+            {
+                MaxTimeout = -1,
+            };
+            var client = new RestClient(options);
+            var request = new RestRequest("/todos/1", Method.Get);
+            RestResponse response =  client.Execute(request);
+            Console.WriteLine(response.Content);
+            var convertedData = JsonConvert.DeserializeObject<ExternalUserDTO>(response.Content);
+            return convertedData;
+        }
+
+     
     }
 }
