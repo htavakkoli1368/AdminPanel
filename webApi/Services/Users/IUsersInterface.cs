@@ -8,7 +8,7 @@ namespace webApi.Services.Users
         ResultDto AddNewUsers(UsersDTO userDTO);
         UsersDTO GetUser(int id);
         ResultDto DeleteUsers(int id);
-        ResultDto UpdateUsers(int id);
+        ResultDto UpdateUsers(int id,UsersUpdateDTO usersUpdate);
 
     }
 }

@@ -50,13 +50,24 @@ namespace webApi.Services.Users
             var users = appDbContext.usersSample.FirstOrDefault(c=>c.Id == id);
             if (users == null)
                 throw new Exception("the user not found");
-            var convertedUsers =  new UsersDTO() { Id=users.Id,IsAdmin=users.IsAdmin,Passwoed=users.Passwoed,Role=users.Role,UserName=users.UserName};
+            var convertedUsers =  new UsersDTO() { Id=users.Id,IsAdmin=users.IsAdmin, Password = users.Password,Role=users.Role,UserName=users.UserName};
             return convertedUsers;
         }
 
-        public ResultDto UpdateUsers(int id)
+        public ResultDto UpdateUsers(int id, UsersUpdateDTO usersUpdate)
         {
-            return new ResultDto { IsSuccess = true, Message = "the user successfully updated" };
+            var userExist = appDbContext.usersSample.FirstOrDefault(u=>u.Id == id);
+            if (userExist == null)
+                throw new Exception("the user not exist");
+            else
+            {
+                userExist.IsAdmin = usersUpdate.IsAdmin;
+                userExist.Password = usersUpdate.Password;
+                userExist.Role = usersUpdate.Role;
+                userExist.UserName = usersUpdate.UserName;
+                appDbContext.SaveChanges();
+            }
+                return new ResultDto { IsSuccess = true, Message = "the user successfully updated" };
         }
     }
 }

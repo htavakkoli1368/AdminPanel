@@ -46,37 +46,22 @@ namespace webApi.Controllers
 
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutUsers(int id, Users users)
-        //{
-        //    if (id != users.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpPut("{id}")]
+        public  IActionResult PutUsers(int id, UsersUpdateDTO users)
+        {
 
-        //    _context.Entry(users).State = EntityState.Modified;
+            var updatedUser = usersContext.UpdateUsers(id, users);
+             
+            if(!updatedUser.IsSuccess)
+            {
+                return BadRequest("some things wrong happen");
+            }
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!UsersExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            return Ok(updatedUser);
+        }
 
-        //    return NoContent();
-        //}
-
-       // POST: api/Users
-       // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: api/Users
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public  ActionResult  PostUsers(UsersDTO users)
         {
