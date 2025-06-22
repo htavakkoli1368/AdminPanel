@@ -73,24 +73,23 @@ namespace webApi.Controllers
         }
 
         //DELETE: api/Users/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteUsers(int id)
-        //{
-        //    var users = await _context.usersSample.FindAsync(id);
-        //    if (users == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpDelete("{id}")]
+        public  IActionResult DeleteUsers(int id)
+        {
+            var users = usersContext.DeleteUsers(id);
+            if (users == null)
+            {
+                return NotFound();
+            }      
 
-        //    _context.usersSample.Remove(users);
-        //    await _context.SaveChangesAsync();
+            return Ok(users);
+        }
 
-        //    return NoContent();
-        //}
-
-        //private bool UsersExists(int id)
-        //{
-        //    return _context.usersSample.Any(e => e.Id == id);
-        //}
+        [HttpPost("{id}")]
+        public ActionResult<bool> UsersExists(int id)
+        {
+            var exist = usersContext.checkUserExist(id);
+            return Ok(exist);
+        }
     }
 }

@@ -21,53 +21,92 @@ namespace webApi.Services.Users
 
         public ResultDto AddNewUsers(UsersDTO userDTO)
         {
-            var users = appDbContext.usersSample.FirstOrDefault(c => c.Id == userDTO.Id);
-            if (users != null)
-                throw new Exception("the user you want to add exist");
-            var convertedUsers = autoMapper.Map<Model.Users>(userDTO);
-            appDbContext.usersSample.Add(convertedUsers);
-            appDbContext.SaveChanges();              
-            return new ResultDto() { IsSuccess = true ,Message="the user successfully added to the database"};
+            try
+            {
+                var users = appDbContext.usersSample.FirstOrDefault(c => c.Id == userDTO.Id);
+                if (users != null)
+                    return new ResultDto { IsSuccess = false, Message = "the selected user exist" };
+                var convertedUsers = autoMapper.Map<Model.Users>(userDTO);
+                appDbContext.usersSample.Add(convertedUsers);
+                appDbContext.SaveChanges();
+                return new ResultDto() { IsSuccess = true, Message = "the user successfully added to the database" };
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(exp.Message);  
+            }         
         }
 
         public ResultDto DeleteUsers(int id)
         {
-
-            return new ResultDto { IsSuccess = true, Message = "the user successfully updated" };
+            try
+            {
+                var userExist = appDbContext.usersSample.FirstOrDefault(u => u.Id == id);
+                if (userExist == null)
+                   return new ResultDto { IsSuccess = false, Message = "the selected user is not exist" };
+                appDbContext.usersSample.Remove(userExist);
+                appDbContext.SaveChanges();
+                return new ResultDto { IsSuccess = true, Message = "the user successfully Deleted" };
+            }
+            catch (Exception exp)
+            {
+              throw new Exception(exp.Message);             
+            }
+                     
         }
 
         public List<UsersDTO> GetAllUsers()
-        {
-             var allusers = appDbContext.usersSample.ToList();
-            if (allusers == null)
-                throw new Exception("there is no users in database");
+        {            
+            var allusers = appDbContext.usersSample.ToList();
+            if (allusers == null || allusers.Count == 0)
+                return new List<UsersDTO>(){};
             var convertedUsers = autoMapper.Map<List<UsersDTO>>(allusers);
-            return convertedUsers;
+            return convertedUsers;                    
         }
 
         public UsersDTO GetUser(int id)
         {
-            var users = appDbContext.usersSample.FirstOrDefault(c=>c.Id == id);
-            if (users == null)
-                throw new Exception("the user not found");
-            var convertedUsers =  new UsersDTO() { Id=users.Id,IsAdmin=users.IsAdmin, Password = users.Password,Role=users.Role,UserName=users.UserName};
-            return convertedUsers;
+            try
+            {
+                var users = appDbContext.usersSample.FirstOrDefault(c => c.Id == id);
+                if (users == null)
+                    return new UsersDTO() { };
+                var convertedUsers = autoMapper.Map<UsersDTO>(users);
+                return convertedUsers;
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(exp.Message);
+            }         
         }
 
         public ResultDto UpdateUsers(int id, UsersUpdateDTO usersUpdate)
         {
-            var userExist = appDbContext.usersSample.FirstOrDefault(u=>u.Id == id);
-            if (userExist == null)
-                throw new Exception("the user not exist");
-            else
+            try
             {
-                userExist.IsAdmin = usersUpdate.IsAdmin;
-                userExist.Password = usersUpdate.Password;
-                userExist.Role = usersUpdate.Role;
-                userExist.UserName = usersUpdate.UserName;
-                appDbContext.SaveChanges();
+                var userExist = appDbContext.usersSample.FirstOrDefault(u => u.Id == id);
+                if (userExist == null)
+                    return new ResultDto { IsSuccess = false, Message = "the selected user is not exist" };
+                else
+                {
+                    userExist.IsAdmin = usersUpdate.IsAdmin;
+                    userExist.Password = usersUpdate.Password;
+                    userExist.Role = usersUpdate.Role;
+                    userExist.UserName = usersUpdate.UserName;
+                    appDbContext.SaveChanges();
+                }
+                return new ResultDto { IsSuccess = true, Message = "the user successfully Updated" };
             }
-                return new ResultDto { IsSuccess = true, Message = "the user successfully updated" };
+            catch (Exception exp)
+            {
+                throw new Exception(exp.Message); 
+            }
+       
+        }
+
+        public bool checkUserExist(int id)
+        {
+            return appDbContext.usersSample.Any(u=>u.Id == id);
         }
     }
 }

@@ -1,8 +1,7 @@
 ﻿namespace webApi.Services.Users
 {
-    public class UsersDTO
-    {
-        public int Id { get; set; }
+    public class UsersUpdateDTO
+    {         
 
         public string UserName { get; set; }
 
