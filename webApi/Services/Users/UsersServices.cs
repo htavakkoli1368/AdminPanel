@@ -54,9 +54,8 @@ namespace webApi.Services.Users
             return convertedUsers;
         }
 
-        public ResultDto UpdateUsers(int id, AddNewUserDTO newUserDTO)
+        public ResultDto UpdateUsers(int id)
         {
-
             return new ResultDto { IsSuccess = true, Message = "the user successfully updated" };
         }
     }
