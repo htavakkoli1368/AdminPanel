@@ -37,8 +37,8 @@ namespace webApi.Controllers
         }
 
         // GET: api/Users/5
-        [HttpGet("uniqueUser,{id}")]
-        public   ActionResult<Users>  GetUsers(int id)
+        [HttpGet("uniqueUser")]
+        public   ActionResult<Users> GetUsers([FromQuery] int id)
         {
             var users = usersContext.GetUser(id);
 
@@ -52,8 +52,8 @@ namespace webApi.Controllers
 
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("updateUser,{id}")]
-        public  IActionResult PutUsers(int id, UsersUpdateDTO users)
+        [HttpPut("updateUser")]
+        public  IActionResult PutUsers([FromQuery] int id, UsersUpdateDTO users)
         {
 
             var updatedUser = usersContext.UpdateUsers(id, users);
@@ -79,8 +79,8 @@ namespace webApi.Controllers
         }
 
         //DELETE: api/Users/5
-        [HttpDelete("RemoveUser,{id}")]
-        public  IActionResult DeleteUsers(int id)
+        [HttpDelete("RemoveUser")]
+        public  IActionResult DeleteUsers([FromQuery] int id)
         {
             var users = usersContext.DeleteUsers(id);
             if (users == null)
@@ -91,8 +91,8 @@ namespace webApi.Controllers
             return Ok(users);
         }
 
-        [HttpPost("userExist,{id}")]
-        public ActionResult<bool> UsersExists(int id)
+        [HttpPost("userExist")]
+        public ActionResult<bool> UsersExists([FromQuery] int id)
         {
             var exist = usersContext.checkUserExist(id);
             return Ok(exist);

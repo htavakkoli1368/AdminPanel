@@ -117,8 +117,7 @@ namespace webApi.Services.Users
             };
             var client = new RestClient(options);
             var request = new RestRequest("/todos/1", Method.Get);
-            RestResponse response =  client.Execute(request);
-            Console.WriteLine(response.Content);
+            RestResponse response =  client.Execute(request);           
             var convertedData = JsonConvert.DeserializeObject<ExternalUserDTO>(response.Content);
             return convertedData;
         }
