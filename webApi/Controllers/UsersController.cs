@@ -15,15 +15,23 @@ namespace webApi.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUsersInterface usersContext;       
+        private readonly IUsersInterface usersContext;
 
-        public UsersController(IUsersInterface users)
+        public readonly  IConfiguration _config;
+
+        public UsersController(IUsersInterface users,IConfiguration config)
         {
 
             usersContext = users;
+            _config = config;
         }
 
    
+        [HttpGet("config")]
+        public ActionResult<string> GetusersConn()
+        {
+            return _config.GetConnectionString("DefaultConnection");
+        }
         [HttpGet("internal")]
         public ActionResult<List<UsersDTO>> GetusersSample()
         {
