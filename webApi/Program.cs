@@ -8,6 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:32818") //AllowAnyOrigin() 
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -15,7 +24,7 @@ builder.Services.AddDbContext<AppDbContext>(p => p.UseSqlServer(builder.Configur
 builder.Services.AddAutoMapper(typeof(UsersAutoMapper)); 
 builder.Services.AddScoped<IUsersInterface, UsersServices>();
 var app = builder.Build();
-
+app.UseCors();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

@@ -1,15 +1,39 @@
-<script setup>
-defineProps({
-  msg: {
-    type: String,
-    required: true,
-  },
-})
+<script>
+  import axios from "axios";
+  import {ref} from "vue";
+  export default {
+    props: ["msg"],
+    setup(props, { emit }) {
+      const users = ref(null);
+      function getUser() {
+        axios.get('http://localhost:5101/api/Users/internal')
+          .then(function (response) {
+            // handle success
+            console.log("response");
+            console.log(response);
+            users.value = response.data;
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+          })
+          .finally(function () {
+            // always executed
+          });
+      }
+      return {
+        getUser,
+        users
+      }
+    }
+  }
 </script>
 
 <template>
   <div class="greetings">
     <h1 class="green">{{ msg }}</h1>
+    <button @click="getUser()">get user</button>
+    <p>{{users}}</p>
     <h3>
       You’ve successfully created a project with
       <a href="https://vite.dev/" target="_blank" rel="noopener">Vite</a> +
