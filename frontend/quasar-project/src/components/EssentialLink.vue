@@ -1,17 +1,9 @@
 <template>
-  <q-item
-    clickable
-    tag="a"
-    target="_blank"
-    :href="link"
-  >
-    <q-item-section
-      v-if="icon"
-      avatar
-    >
+  <q-item clickable
+          v-bind="itemProps">
+    <q-item-section v-if="icon" avatar>
       <q-icon :name="icon" />
     </q-item-section>
-
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
       <q-item-label caption>{{ caption }}</q-item-label>
@@ -20,30 +12,32 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+  import { defineComponent, computed } from 'vue'
 
-export default defineComponent({
-  name: 'EssentialLink',
-  props: {
-    title: {
-      type: String,
-      required: true
+  export default defineComponent({
+    name: 'EssentialLink',
+    props: {
+      title: String,
+      caption: String,
+      link: String,
+      icon: String,
+      path: String
     },
-
-    caption: {
-      type: String,
-      default: ''
-    },
-
-    link: {
-      type: String,
-      default: '#'
-    },
-
-    icon: {
-      type: String,
-      default: ''
+    setup(props) {
+      const itemProps = computed(() => {
+        if (props.link) {
+          return {
+            tag: 'a',
+            href: props.link,
+            target: '_blank'
+          }
+        }
+        if (props.path) {
+          return { to: props.path, exact: true }
+        }
+        return {}
+      });
+      return { itemProps }
     }
-  }
-})
+  })
 </script>

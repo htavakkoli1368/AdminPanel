@@ -1,9 +1,15 @@
-<template>
-  <q-page class="flex flex-center">
-    <img alt="Quasar logo"
-         src="~assets/quasar-logo-vertical.svg"
-         style="width: 200px; height: 200px">
-  </q-page>
+<template>  
+    <div class="q-pa-md">
+      <q-table style="height: 400px"
+               flat bordered
+               title="Users"
+               :rows="rows"
+               :columns="columns"
+               row-key="index"
+               virtual-scroll
+                />
+    </div>
+    <q-btn @click="getUsers">show Users</q-btn> 
 </template> 
   <script>
     import { onMounted, reactive, ref, toRefs } from "vue";   
