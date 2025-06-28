@@ -43,6 +43,9 @@ namespace webApi.Controllers
             List <Claim> claims = new();
             claims.Add(new(JwtRegisteredClaimNames.Sub,user.Id.ToString()));
             claims.Add(new(JwtRegisteredClaimNames.UniqueName,user.UserName));
+            claims.Add(new Claim("Role", "Admin"));
+            claims.Add(new Claim("IsAdmin", "true"));
+       
 
             var token = new JwtSecurityToken(
                  _config.GetValue<string>("Authentication:Issuer"),
