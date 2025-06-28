@@ -1,4 +1,6 @@
-using Microsoft.EntityFrameworkCore; 
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using webApi.Infrastructure;
 using webApi.Mapper;
 using webApi.Services.Users;
@@ -21,10 +23,12 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer(opts =>
 {
     opts.TokenValidationParameters = new()
     {
-       ValidateIssuer = true,
-       ValidateAudience = true,
-       ValidateIssuerSigningKey = true,
-       ValidIssuer = builder.Configuration.GetValue<string>("Authentication:Issuer")
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration.GetValue<string>("Authentication:Issuer"),
+        ValidAudience = builder.Configuration.GetValue<string>("Authentication:Audience"),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("Authentication:SecretKey")))
     };
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -43,6 +47,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 
 app.UseAuthorization();
 
