@@ -8,6 +8,7 @@ using System.Text;
 
 namespace webApi.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class AuthenticationController : ControllerBase
@@ -19,10 +20,12 @@ namespace webApi.Controllers
             _config = config;
         }
         public record AuthenticationData(string? UserName , string? Password);
-        public record UserData(int Id , string? UserName);
+        public record UserData(int Id , string? UserName,string Role,bool IsAdmin);
+
+        [AllowAnonymous]
         [HttpPost("Token")]        
          public ActionResult<string> Authenticate([FromBody] AuthenticationData data)
-        {
+        {            
             var user = ValidateCredential(data);
             if (user == null)
             {
@@ -31,6 +34,15 @@ namespace webApi.Controllers
             var token = GenerateToken(user);
             return Ok(token);
         }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet("AllUsers")]
+        public ActionResult<List<string>> GetAllUser()
+        {
+            var user = new List<string>() { "hossein","saeed","ali","God"};
+           
+            return Ok(user);
+        }  
         private string GenerateToken(UserData user)
         {   
             //first create secreteKey
@@ -43,8 +55,8 @@ namespace webApi.Controllers
             List <Claim> claims = new();
             claims.Add(new(JwtRegisteredClaimNames.Sub,user.Id.ToString()));
             claims.Add(new(JwtRegisteredClaimNames.UniqueName,user.UserName));
-            claims.Add(new Claim("Role", "Admin"));
-            claims.Add(new Claim("IsAdmin", "true"));
+            claims.Add(new Claim("Roles", user.Role)); 
+            claims.Add(new Claim("IsAdmin", user.IsAdmin.ToString()));
        
 
             var token = new JwtSecurityToken(
@@ -62,11 +74,11 @@ namespace webApi.Controllers
         {
             if(CompareValues(data.UserName,"ht") && CompareValues(data.Password,"858585"))
             {
-                return new UserData(1, data.UserName );
+                return new UserData(1, data.UserName,"admin",true );
             }
             if(CompareValues(data.UserName,"hossein") && CompareValues(data.Password,"696969"))
             {
-                return new UserData(2, data.UserName );
+                return new UserData(2, data.UserName ,"user",false);
             }
             return null; 
         }
