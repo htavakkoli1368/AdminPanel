@@ -46,7 +46,7 @@ namespace webApi.Controllers
 
         // GET: api/Users/5
         [HttpGet("uniqueUser")]
-        public   ActionResult<Users> GetUsers([FromQuery] int id)
+        public   ActionResult<UsersModel> GetUsers([FromQuery] int id)
         {
             var users = usersContext.GetUser(id);
 

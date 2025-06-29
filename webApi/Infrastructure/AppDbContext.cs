@@ -12,6 +12,6 @@ namespace webApi.Infrastructure
             
         }
 
-        public DbSet<Users> usersSample { get; set; }
+        public DbSet<UsersModel> usersSample { get; set; }
     }
 }

@@ -26,7 +26,7 @@ namespace webApi.Services.Users
                 var users = appDbContext.usersSample.FirstOrDefault(c => c.Id == userDTO.Id);
                 if (users != null)
                     return new ResultDto { IsSuccess = false, Message = "the selected user exist" };
-                var convertedUsers = autoMapper.Map<Model.Users>(userDTO);
+                var convertedUsers = autoMapper.Map<Model.UsersModel>(userDTO);
                 appDbContext.usersSample.Add(convertedUsers);
                 appDbContext.SaveChanges();
                 return new ResultDto() { IsSuccess = true, Message = "the user successfully added to the database" };

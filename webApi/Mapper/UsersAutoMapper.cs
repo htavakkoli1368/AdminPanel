@@ -8,8 +8,7 @@ namespace webApi.Mapper
     {
         public UsersAutoMapper()
         {
-            CreateMap<Users,UsersDTO>().ReverseMap();
-          //  CreateMap<UsersDTO,Users>();
+            CreateMap<UsersModel,UsersDTO>().ReverseMap();          
         }
     }
 }
