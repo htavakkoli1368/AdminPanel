@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using webApi.Constants;
 using webApi.Infrastructure;
 using webApi.Model;
 using webApi.Services.Users;
@@ -13,6 +15,7 @@ namespace webApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+   
     public class UsersController : ControllerBase
     {
         private readonly IUsersInterface usersContext;
@@ -46,6 +49,7 @@ namespace webApi.Controllers
 
         // GET: api/Users/5
         [HttpGet("uniqueUser")]
+        [Authorize(Policy = PolicyConstants.requireRoleAdmin)]
         public   ActionResult<UsersModel> GetUsers([FromQuery] int id)
         {
             var users = usersContext.GetUser(id);

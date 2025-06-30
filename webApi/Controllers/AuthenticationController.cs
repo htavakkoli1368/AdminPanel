@@ -35,14 +35,8 @@ namespace webApi.Controllers
             return Ok(token);
         }
 
-        [Authorize(Roles = "admin")]
-        [HttpGet("AllUsers")]
-        public ActionResult<List<string>> GetAllUser()
-        {
-            var user = new List<string>() { "hossein","saeed","ali","God"};
-           
-            return Ok(user);
-        }  
+         
+        
         private string GenerateToken(UserData user)
         {   
             //first create secreteKey

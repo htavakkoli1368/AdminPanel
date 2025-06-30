@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using webApi.Constants;
 using webApi.Infrastructure;
 using webApi.Mapper;
 using webApi.Services.Users;
@@ -18,6 +20,16 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
+});
+builder.Services.AddAuthorization(opt =>
+{
+    opt.AddPolicy( PolicyConstants.requireRoleAdmin, policy =>
+    {
+        policy.RequireClaim("Roles","admin");
+    });
+    opt.FallbackPolicy = new AuthorizationPolicyBuilder()
+                             .RequireAuthenticatedUser()
+                             .Build();
 });
  builder.Services.AddAuthentication("Bearer").AddJwtBearer(opts =>
 {
