@@ -21,12 +21,14 @@ namespace webApi.Controllers
         private readonly IUsersInterface usersContext;
 
         public readonly  IConfiguration _config;
+        private readonly ILogger<UsersController> logger;
 
-        public UsersController(IUsersInterface users,IConfiguration config)
+        public UsersController(IUsersInterface users,IConfiguration config,ILogger<UsersController> logger)
         {
 
             usersContext = users;
             _config = config;
+            this.logger = logger;
         }
 
    
@@ -53,12 +55,11 @@ namespace webApi.Controllers
         public   ActionResult<UsersModel> GetUsers([FromQuery] int id)
         {
             var users = usersContext.GetUser(id);
-
-            if (users == null)
-            {
-                return NotFound();
-            }
-
+            
+                if (users == null)
+                {
+                    return NotFound();
+                }
             return Ok(users);
         }
 
