@@ -55,28 +55,28 @@ const linksList = [
     caption: 'All in One',
     icon: 'admin_panel_settings',
     link: 'https://quasar.dev',
-    path: '/docs'
+    path: '/dashboard'
   },
   {
     title: 'Shop',
     caption: 'Shoping Center',
     icon: 'shop',
     link: 'https://github.com/quasarframework',
-    path: '/github'
+    path: '/shop'
   },
   {
     title: 'Reports',
     caption: 'Users Reports',
     icon: 'report',
     link: 'https://github.com/quasarframework',
-    path: '/github'
+    path: '/reports'
   },
   {
     title: 'Chat',
     caption: 'Be in Touch',
     icon: 'chat',
     link: 'index',
-    path: '/index'
+    path: '/chat'
   },
   {
     title: 'Accounts',
@@ -90,7 +90,7 @@ const linksList = [
     caption: 'Logout',
     icon: 'logout',
     link: 'index',
-    path: '/index'
+    path: '/logout'
   } 
  
 ]

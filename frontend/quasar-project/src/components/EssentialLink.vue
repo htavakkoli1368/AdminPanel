@@ -1,14 +1,9 @@
 <template>
-  <q-item clickable
-          v-bind="itemProps">
-    <q-item-section v-if="icon" avatar>
-      <q-icon :name="icon" />
-    </q-item-section>
-    <q-item-section>
-      <q-item-label>{{ title }}</q-item-label>
-      <q-item-label caption>{{ caption }}</q-item-label>
-    </q-item-section>
-  </q-item>
+  <q-list v-bind="itemProps">
+    <q-item clickable :to="link" exact>
+      <q-item-section>{{title}}</q-item-section>
+    </q-item>  
+  </q-list>
 </template>
 
 <script>
@@ -23,7 +18,7 @@
       icon: String,
       path: String
     },
-    setup(props) {
+    setup(props ) {
       const itemProps = computed(() => {
         if (props.link) {
           return {
