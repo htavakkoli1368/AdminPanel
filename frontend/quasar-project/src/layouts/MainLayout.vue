@@ -51,33 +51,48 @@ import EssentialLink from 'components/EssentialLink.vue'
 
 const linksList = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
+    title: 'Dashboard',
+    caption: 'All in One',
+    icon: 'admin_panel_settings',
     link: 'https://quasar.dev',
     path: '/docs'
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
+    title: 'Shop',
+    caption: 'Shoping Center',
+    icon: 'shop',
     link: 'https://github.com/quasarframework',
     path: '/github'
-  }, 
+  },
   {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
+    title: 'Reports',
+    caption: 'Users Reports',
+    icon: 'report',
+    link: 'https://github.com/quasarframework',
+    path: '/github'
+  },
+  {
+    title: 'Chat',
+    caption: 'Be in Touch',
+    icon: 'chat',
     link: 'index',
     path: '/index'
-  },  
+  },
   {
-    title: 'Users',
-    caption: 'List of all users',
-    icon: 'book',
+    title: 'Accounts',
+    caption: 'Users Account',
+    icon: 'account_circle',
     link: 'users',
     path: '/users'
-  },
+  }, 
+  {
+    title: 'Log Out',
+    caption: 'Logout',
+    icon: 'logout',
+    link: 'index',
+    path: '/index'
+  } 
+ 
 ]
 
 export default defineComponent({
