@@ -30,13 +30,8 @@ namespace webApi.Controllers
             _config = config;
             this.logger = logger;
         }
-
-   
-        [HttpGet("config")]
-        public ActionResult<string> GetusersConn()
-        {
-            return _config.GetConnectionString("DefaultConnection");
-        }
+          
+       
         [HttpGet("internal")]
         public ActionResult<List<UsersDTO>> GetusersSample()
         {
