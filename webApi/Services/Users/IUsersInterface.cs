@@ -1,4 +1,5 @@
-﻿using webApi.Services.Users.Responses;
+﻿using webApi.Model;
+using webApi.Services.Users.Responses;
 
 namespace webApi.Services.Users
 {
@@ -6,6 +7,7 @@ namespace webApi.Services.Users
     {
         //Done
         List<UsersDTO> GetAllUsers();
+        List<UsersDTO> GetAllUsersByCache();
         //Done
         ResultDto AddNewUsers(UsersDTO userDTO);
         //Done

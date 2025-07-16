@@ -51,6 +51,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(p => p.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddAutoMapper(typeof(UsersAutoMapper)); 
 builder.Services.AddScoped<IUsersInterface, UsersServices>();
+builder.Services.AddMemoryCache();
 var app = builder.Build();
 app.UseCors();
 // Configure the HTTP request pipeline.

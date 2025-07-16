@@ -34,10 +34,16 @@ namespace webApi.Controllers
        
         [HttpGet("internal")]
         public ActionResult<List<UsersDTO>> GetusersSample()
-        {
-            return usersContext.GetAllUsers();
+        { 
+            return usersContext.GetAllUsersByCache();
         }
-       
+
+        [HttpGet("cacheData")]
+        public ActionResult<List<UsersDTO>> GetusersSampleCache()
+        {
+            return usersContext.GetAllUsersByCache();
+        }
+
         [HttpGet("external")]
         public  ActionResult<ExternalUserDTO>  GetusersExternal()
         {

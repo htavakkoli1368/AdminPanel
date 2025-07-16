@@ -18,8 +18,8 @@ namespace webApi.Model
 
         public string Role { get; set; }
         public bool IsAdmin { get; set; }
-        [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$",ErrorMessage = "Please enter a valid email address.")]
-        public string Email { get; set; }
+       // [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$",ErrorMessage = "Please enter a valid email address.")]
+      //  public string Email { get; set; }
 
     }
 

@@ -1,5 +1,8 @@
 ﻿
 using AutoMapper;
+using Azure;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Linq;
@@ -13,10 +16,13 @@ namespace webApi.Services.Users
     {
         public readonly AppDbContext appDbContext;
         public readonly IMapper autoMapper;
-        public UsersServices(AppDbContext appContext ,IMapper autoMapper)
+        private readonly IMemoryCache memoryCache;
+
+        public UsersServices(AppDbContext appContext ,IMapper autoMapper,IMemoryCache memoryCache)
         {
             this.appDbContext = appContext;
             this.autoMapper = autoMapper;
+            this.memoryCache = memoryCache;
         }
 
         public ResultDto AddNewUsers(UsersDTO userDTO)
@@ -62,6 +68,29 @@ namespace webApi.Services.Users
                 return new List<UsersDTO>(){};
             var convertedUsers = autoMapper.Map<List<UsersDTO>>(allusers);
             return convertedUsers;                    
+        }
+        public List<UsersDTO> GetAllUsersByCache()
+        {
+            const string cacheKey = "userList";
+            bool fromCache = true;
+            // Try to get data from cache
+            if (!memoryCache.TryGetValue(cacheKey, out List<UsersModel> users))
+            {
+                // Not in cache, so fetch from repository
+                users =  appDbContext.usersSample.ToList();
+
+                // Store in cache, set expiration time (e.g., 5 minutes)
+                var cacheOptions = new MemoryCacheEntryOptions()
+                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(5))
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(2));
+
+                memoryCache.Set(cacheKey, users, cacheOptions);
+                fromCache = false;
+            }
+            if (users is null)
+                return new List<UsersDTO>();
+           var convertedUsers = autoMapper.Map<List<UsersDTO>>(users);
+            return convertedUsers;
         }
 
         public UsersDTO GetUser(int id)
