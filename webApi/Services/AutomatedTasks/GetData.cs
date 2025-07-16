@@ -2,11 +2,8 @@
 
 namespace webApi.Services.AutomatedTasks
 {
-    public class GetData : IJob
+    public class GetData  
     {
-        public Task Execute(IJobExecutionContext context)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
