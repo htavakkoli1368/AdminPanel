@@ -33,7 +33,7 @@ namespace webApi.Controllers
 
         [HttpGet("cacheData")]
         public ActionResult<List<UsersDTO>> GetusersSampleCache()
-        {
+        {             
             return usersContext.GetAllUsersByCache();
         }
 
@@ -43,6 +43,12 @@ namespace webApi.Controllers
             return usersContext.GetUserExternal();
         }
 
+        [HttpGet("datacache")]
+        [ResponseCache(Duration =10,Location = ResponseCacheLocation.Any,NoStore =false)]
+        public ActionResult<string[]> GetResponseCache()
+        {
+            return new string[] {Random.Shared.Next(1,100).ToString()};
+        }
         // GET: api/Users/5
         [HttpGet("uniqueUser")]
         [Authorize(Policy = PolicyConstants.requireRoleAdmin)]
