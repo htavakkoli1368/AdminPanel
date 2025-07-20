@@ -1,5 +1,4 @@
-﻿using webApi.Model;
-using webApi.Services.Users.Responses;
+﻿using webApi.Services.Users.Responses;
 
 namespace webApi.Services.Users
 {
@@ -15,7 +14,7 @@ namespace webApi.Services.Users
         ExternalUserDTO GetUserExternal();
         ResultDto DeleteUsers(int id);
         //Done
-        ResultDto UpdateUsers(int id,UsersUpdateDTO usersUpdate);
+        ResultDto UpdateUsers(int id, UsersUpdateDTO usersUpdate);
         //Done
         bool checkUserExist(int id);
 

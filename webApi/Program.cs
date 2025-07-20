@@ -23,15 +23,15 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddAuthorization(opt =>
 {
-    opt.AddPolicy( PolicyConstants.requireRoleAdmin, policy =>
+    opt.AddPolicy(PolicyConstants.requireRoleAdmin, policy =>
     {
-        policy.RequireClaim("Roles","admin");
+        policy.RequireClaim("Roles", "admin");
     });
     opt.FallbackPolicy = new AuthorizationPolicyBuilder()
                              .RequireAuthenticatedUser()
                              .Build();
 });
- builder.Services.AddAuthentication("Bearer").AddJwtBearer(opts =>
+builder.Services.AddAuthentication("Bearer").AddJwtBearer(opts =>
 {
     opts.TokenValidationParameters = new()
     {
@@ -45,11 +45,11 @@ builder.Services.AddAuthorization(opt =>
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
- 
+
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(p => p.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddAutoMapper(typeof(UsersAutoMapper)); 
+builder.Services.AddAutoMapper(typeof(UsersAutoMapper));
 builder.Services.AddScoped<IUsersInterface, UsersServices>();
 builder.Services.AddMemoryCache();
 var app = builder.Build();

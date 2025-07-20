@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -8,7 +7,7 @@ using System.Text;
 
 namespace webApi.Controllers
 {
-    
+
     [Route("api/[controller]")]
     [ApiController]
     public class AuthenticationController : ControllerBase
@@ -19,13 +18,13 @@ namespace webApi.Controllers
         {
             _config = config;
         }
-        public record AuthenticationData(string? UserName , string? Password);
-        public record UserData(int Id , string? UserName,string Role,bool IsAdmin);
+        public record AuthenticationData(string? UserName, string? Password);
+        public record UserData(int Id, string? UserName, string Role, bool IsAdmin);
 
         [AllowAnonymous]
-        [HttpPost("Token")]        
-         public ActionResult<string> Authenticate([FromBody] AuthenticationData data)
-        {            
+        [HttpPost("Token")]
+        public ActionResult<string> Authenticate([FromBody] AuthenticationData data)
+        {
             var user = ValidateCredential(data);
             if (user == null)
             {
@@ -35,10 +34,10 @@ namespace webApi.Controllers
             return Ok(token);
         }
 
-         
-        
+
+
         private string GenerateToken(UserData user)
-        {   
+        {
             //first create secreteKey
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetValue<string>("Authentication:SecretKey")));
 
@@ -46,12 +45,12 @@ namespace webApi.Controllers
             //last step and choose our securityalgoritm that we choose hmacSha256
             var signingCredential = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
-            List <Claim> claims = new();
-            claims.Add(new(JwtRegisteredClaimNames.Sub,user.Id.ToString()));
-            claims.Add(new(JwtRegisteredClaimNames.UniqueName,user.UserName));
-            claims.Add(new Claim("Roles", user.Role)); 
+            List<Claim> claims = new();
+            claims.Add(new(JwtRegisteredClaimNames.Sub, user.Id.ToString()));
+            claims.Add(new(JwtRegisteredClaimNames.UniqueName, user.UserName));
+            claims.Add(new Claim("Roles", user.Role));
             claims.Add(new Claim("IsAdmin", user.IsAdmin.ToString()));
-       
+
 
             var token = new JwtSecurityToken(
                  _config.GetValue<string>("Authentication:Issuer"),
@@ -64,24 +63,24 @@ namespace webApi.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-        private UserData ValidateCredential(AuthenticationData data) 
+        private UserData ValidateCredential(AuthenticationData data)
         {
-            if(CompareValues(data.UserName,"ht") && CompareValues(data.Password,"858585"))
+            if (CompareValues(data.UserName, "ht") && CompareValues(data.Password, "858585"))
             {
-                return new UserData(1, data.UserName,"admin",true );
+                return new UserData(1, data.UserName, "admin", true);
             }
-            if(CompareValues(data.UserName,"hossein") && CompareValues(data.Password,"696969"))
+            if (CompareValues(data.UserName, "hossein") && CompareValues(data.Password, "696969"))
             {
-                return new UserData(2, data.UserName ,"user",false);
+                return new UserData(2, data.UserName, "user", false);
             }
-            return null; 
+            return null;
         }
-        
+
         private bool CompareValues(string? actual, string? expected)
         {
-            if(actual is not null)
+            if (actual is not null)
             {
-               if(actual.Equals(expected))
+                if (actual.Equals(expected))
                 {
                     return true;
                 }
