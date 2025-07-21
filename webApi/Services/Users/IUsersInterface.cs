@@ -5,8 +5,7 @@ namespace webApi.Services.Users
     public interface IUsersInterface
     {
         //Done
-        List<UsersDTO> GetAllUsers();
-        List<UsersDTO> GetAllUsersByCache();
+        List<UsersDTO> GetAllUsers();       
         //Done
         ResultDto AddNewUsers(UsersDTO userDTO);
         //Done

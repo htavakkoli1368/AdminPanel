@@ -45,13 +45,13 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer(opts =>
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddResponseCaching(); 
+
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(p => p.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddAutoMapper(typeof(UsersAutoMapper));
 builder.Services.AddScoped<IUsersInterface, UsersServices>();
-builder.Services.AddMemoryCache();
+builder.Services.AddResponseCaching();
 var app = builder.Build();
 app.UseCors();
 // Configure the HTTP request pipeline.
@@ -63,8 +63,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
+app.UseResponseCaching();
 app.UseAuthorization();
-app.UseResponseCaching(); 
+
  
 app.MapControllers();
 

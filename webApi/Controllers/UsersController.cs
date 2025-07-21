@@ -28,14 +28,8 @@ namespace webApi.Controllers
         [HttpGet("internal")]
         public ActionResult<List<UsersDTO>> GetusersSample()
         {
-            return usersContext.GetAllUsersByCache();
-        }
-
-        [HttpGet("cacheData")]
-        public ActionResult<List<UsersDTO>> GetusersSampleCache()
-        {             
-            return usersContext.GetAllUsersByCache();
-        }
+            return usersContext.GetAllUsers();
+        }        
 
         [HttpGet("external")]
         public ActionResult<ExternalUserDTO> GetusersExternal()
@@ -44,8 +38,9 @@ namespace webApi.Controllers
         }
 
         [HttpGet("datacache")]
+        [AllowAnonymous]
         [ResponseCache(Duration =10,Location = ResponseCacheLocation.Any,NoStore =false)]
-        public ActionResult<string[]> GetResponseCache()
+        public IEnumerable<string> GetResponseCache()
         {
             return new string[] {Random.Shared.Next(1,100).ToString()};
         }
