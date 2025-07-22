@@ -2,116 +2,54 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
-
+        <q-btn flat dense round icon="menu" @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu" />
         <q-toolbar-title>
-          Quasar App
+          اپ مدیریت آب، برق و گاز
         </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"           
-          v-bind="link"
-        />
+        <q-item clickable v-ripple to="/dashboard">
+          <q-item-section avatar>
+            <q-icon name="dashboard" />
+          </q-item-section>
+          <q-item-section>داشبورد</q-item-section>
+        </q-item>
+        <q-item clickable v-ripple to="/water">
+          <q-item-section avatar>
+            <q-icon name="water" />
+          </q-item-section>
+          <q-item-section>مصرف آب</q-item-section>
+        </q-item>
+        <q-item clickable v-ripple to="/electricity">
+          <q-item-section avatar>
+            <q-icon name="bolt" />
+          </q-item-section>
+          <q-item-section>مصرف برق</q-item-section>
+        </q-item>
+        <q-item clickable v-ripple to="/gas">
+          <q-item-section avatar>
+            <q-icon name="local_fire_department" />
+          </q-item-section>
+          <q-item-section>مصرف گاز</q-item-section>
+        </q-item>
+        <q-item clickable v-ripple to="/settings">
+          <q-item-section avatar>
+            <q-icon name="settings" />
+          </q-item-section>
+          <q-item-section>تنظیمات</q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
-
     <q-page-container>
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
-<script>
-import { defineComponent, ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
-
-const linksList = [
-  {
-    title: 'Dashboard',
-    caption: 'All in One',
-    icon: 'admin_panel_settings',
-    link: 'https://quasar.dev',
-    path: '/dashboard'
-  },
-  {
-    title: 'Shop',
-    caption: 'Shoping Center',
-    icon: 'shop',
-    link: 'https://github.com/quasarframework',
-    path: '/shop'
-  },
-  {
-    title: 'Reports',
-    caption: 'Users Reports',
-    icon: 'report',
-    link: 'https://github.com/quasarframework',
-    path: '/reports'
-  },
-  {
-    title: 'Chat',
-    caption: 'Be in Touch',
-    icon: 'chat',
-    link: 'index',
-    path: '/chat'
-  },
-  {
-    title: 'Accounts',
-    caption: 'Users Account',
-    icon: 'account_circle',
-    link: 'users',
-    path: '/users'
-  }, 
-  {
-    title: 'Log Out',
-    caption: 'Logout',
-    icon: 'logout',
-    link: 'index',
-    path: '/logout'
-  } 
- 
-]
-
-export default defineComponent({
-  name: 'MainLayout',
-
-  components: {
-    EssentialLink
-  },
-
-  setup () {
-    const leftDrawerOpen = ref(false)
-
-    return {
-      linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
-})
+<script setup>
+  import { ref } from 'vue'
+  const leftDrawerOpen = ref(false)
 </script>
