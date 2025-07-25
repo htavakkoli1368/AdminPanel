@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="text-h5 text-center q-mb-lg">داشبورد مصرف</div>
+    <div class="text-h5 text-center q-mb-lg">Consumption DashBoard</div>
     <q-card class="q-mb-md">
       <q-card-section>
         <div class="row q-col-gutter-md">
@@ -8,8 +8,8 @@
             <q-card flat bordered>
               <q-card-section class="text-center">
                 <q-icon name="water" color="primary" size="40px" />
-                <div class="text-subtitle1 q-mt-sm">آب</div>
-                <div class="text-h6">{{ waterTotal }} متر مکعب</div>
+                <div class="text-subtitle1 q-mt-sm">Water</div>
+                <div class="text-h6">{{ waterTotal }} M3</div>
               </q-card-section>
             </q-card>
           </div>
@@ -17,8 +17,8 @@
             <q-card flat bordered>
               <q-card-section class="text-center">
                 <q-icon name="bolt" color="yellow-8" size="40px" />
-                <div class="text-subtitle1 q-mt-sm">برق</div>
-                <div class="text-h6">{{ electricityTotal }} کیلووات</div>
+                <div class="text-subtitle1 q-mt-sm">Electricity</div>
+                <div class="text-h6">{{ electricityTotal }} KW</div>
               </q-card-section>
             </q-card>
           </div>
@@ -26,8 +26,8 @@
             <q-card flat bordered>
               <q-card-section class="text-center">
                 <q-icon name="local_fire_department" color="red" size="40px" />
-                <div class="text-subtitle1 q-mt-sm">گاز</div>
-                <div class="text-h6">{{ gasTotal }} متر مکعب</div>
+                <div class="text-subtitle1 q-mt-sm">Gas</div>
+                <div class="text-h6">{{ gasTotal }} M3 </div>
               </q-card-section>
             </q-card>
           </div>
