@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "apisecurity", "..\apisecuri
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "frontend", "frontend\frontend.esproj", "{462EE049-9FE1-B47D-1B3E-22BACA5D9185}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoLibrary", "ToDoLibrary\ToDoLibrary.csproj", "{748354B8-A819-464E-A0A9-C7743A7B35FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoLibrary", "ToDoLibrary\ToDoLibrary.csproj", "{748354B8-A819-464E-A0A9-C7743A7B35FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApi", "ToDoApi\ToDoApi.csproj", "{645F8177-CB94-45D7-9ECB-86D3C5E07698}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{748354B8-A819-464E-A0A9-C7743A7B35FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{748354B8-A819-464E-A0A9-C7743A7B35FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{748354B8-A819-464E-A0A9-C7743A7B35FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{645F8177-CB94-45D7-9ECB-86D3C5E07698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{645F8177-CB94-45D7-9ECB-86D3C5E07698}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{645F8177-CB94-45D7-9ECB-86D3C5E07698}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{645F8177-CB94-45D7-9ECB-86D3C5E07698}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
