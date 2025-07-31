@@ -27,6 +27,9 @@ namespace ToDoApi
             }
             );
 
+            builder.Services.AddHealthChecks()
+                .AddSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+
             builder.Services.AddAuthentication("Bearer").AddJwtBearer(opts =>
             {
                 opts.TokenValidationParameters = new()
@@ -58,6 +61,8 @@ namespace ToDoApi
 
 
             app.MapControllers();
+
+            app.MapHealthChecks("/health").AllowAnonymous();
 
             app.Run();
         }
