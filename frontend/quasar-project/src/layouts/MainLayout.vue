@@ -4,7 +4,7 @@
       <q-toolbar>
         <q-btn flat dense round icon="menu" @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu" />
         <q-toolbar-title>
-          اپ مدیریت آب، برق و گاز
+          Water,Electricity and Gas Management System
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -15,31 +15,31 @@
           <q-item-section avatar>
             <q-icon name="dashboard" />
           </q-item-section>
-          <q-item-section>داشبورد</q-item-section>
+          <q-item-section>Dashboard</q-item-section>
         </q-item>
         <q-item clickable v-ripple to="/water">
           <q-item-section avatar>
             <q-icon name="water" />
           </q-item-section>
-          <q-item-section>مصرف آب</q-item-section>
+          <q-item-section>Water Usage</q-item-section>
         </q-item>
         <q-item clickable v-ripple to="/electricity">
           <q-item-section avatar>
             <q-icon name="bolt" />
           </q-item-section>
-          <q-item-section>مصرف برق</q-item-section>
+          <q-item-section>Electricity Usage</q-item-section>
         </q-item>
         <q-item clickable v-ripple to="/gas">
           <q-item-section avatar>
             <q-icon name="local_fire_department" />
           </q-item-section>
-          <q-item-section>مصرف گاز</q-item-section>
+          <q-item-section>Gas Usage</q-item-section>
         </q-item>
         <q-item clickable v-ripple to="/settings">
           <q-item-section avatar>
             <q-icon name="settings" />
           </q-item-section>
-          <q-item-section>تنظیمات</q-item-section>
+          <q-item-section>Settings</q-item-section>
         </q-item>
       </q-list>
     </q-drawer>

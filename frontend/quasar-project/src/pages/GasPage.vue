@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="text-h5 text-center q-mb-lg">ثبت و مشاهده مصرف گاز</div>
+    <div class="text-h5 text-center q-mb-lg">Record Gas Consumption</div>
     <q-card class="q-mb-md">
       <q-card-section>
         <q-form @submit.prevent="addRecord">
@@ -8,7 +8,7 @@
             <div class="col-12 col-md-6">
               <q-input
                 v-model="amount"
-                label="مقدار مصرف (متر مکعب)"
+                label="Consumption Amount"
                 type="number"
                 outlined
                 dense
@@ -18,7 +18,7 @@
             <div class="col-12 col-md-6">
               <q-input
                 v-model="date"
-                label="تاریخ"
+                label="Date"
                 type="date"
                 outlined
                 dense
@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="q-mt-md text-center">
-            <q-btn color="primary" label="ثبت مصرف" type="submit" />
+            <q-btn color="primary" label="Register Consumption" type="submit" />
           </div>
         </q-form>
       </q-card-section>
@@ -35,14 +35,14 @@
 
     <q-card>
       <q-card-section>
-        <div class="text-subtitle2 q-mb-md">لیست مصرف‌های ثبت‌شده</div>
+        <div class="text-subtitle2 q-mb-md">List of Registered Uses</div>
         <q-table
           :rows="records"
           :columns="columns"
           row-key="id"
           flat
           bordered
-          no-data-label="هنوز مصرفی ثبت نشده است"
+          no-data-label="No Registeration"
         />
       </q-card-section>
     </q-card>
@@ -57,8 +57,8 @@ const date = ref('')
 const records = ref([])
 
 const columns = [
-  { name: 'date', label: 'تاریخ', field: 'date', align: 'center' },
-  { name: 'amount', label: 'مقدار (متر مکعب)', field: 'amount', align: 'center' }
+  { name: 'date', label: 'Date', field: 'date', align: 'center' },
+  { name: 'amount', label: 'Amount', field: 'amount', align: 'center' }
 ]
 
 onMounted(() => {
